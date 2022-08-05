@@ -121,3 +121,35 @@ Resources:
       VpcId: 
         Fn::ImportValue:
           Fn::Sub: "${EnvironmentName}-VPCID"
+  UdagramS3ReadOnlyAccess:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ec2.amazonaws.com
+            Action:
+              - "sts:AssumeRole"
+      ManagedPolicyArns:
+        - arn:aws:iam:/policy/AmazonSSMManagedInstanceCore
+  UdagramProfileROle:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Roles:
+        - !Ref UdagramS3ReadOnlyAccess
+      
+
+Outputs:
+  LoadBalancerDNSName:
+    Description: DNS Name of the web application
+    Value:
+      Fn::Join:
+        - ""
+        - - "http://"
+          - Fn::GetAtt: WebAppLB.DNSName
+    Export:
+      Name:
+        Fn::Sub: "${EnvironmentName}-DNS-NAME"
