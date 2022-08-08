@@ -141,14 +141,14 @@ Resources:
         - !Ref UdagramS3ReadOnlyAccess
       
 
-Outputs:
-  LoadBalancerDNSName:
-    Description: DNS Name of the web application
-    Value:
-      Fn::Join:
-        - ""
-        - - "http://"
-          - Fn::GetAtt: WebAppLB.DNSName
-    Export:
-      Name:
-        Fn::Sub: "${EnvironmentName}-DNS-NAME"
+# Outputs:
+#   LoadBalancerDNSName:
+#     Description: DNS Name of the web application
+#     Value:
+#       Fn::Join:
+#         - ""
+#         - - "http://"
+#           - Fn::GetAtt: WebAppLB.DNSName
+#     Export:
+#       Name:
+#         Fn::Sub: "${EnvironmentName}-DNS-NAME"
